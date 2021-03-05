@@ -13,6 +13,7 @@ defmodule EventApp.Users.User do
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:name, :email])
+    |> unique_constraint(:name)
     |> validate_required([:name, :email])
   end
 end
