@@ -1,3 +1,6 @@
+# code for Session Controller taken from 
+# https://github.com/NatTuck/scratch-2021-01/blob/master/notes-4550/11-photoblog/notes.md
+
 defmodule EventAppWeb.SessionController do
     use EventAppWeb, :controller
   
