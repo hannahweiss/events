@@ -1,0 +1,15 @@
+/* This file is for your main application css. */
+@import "bootstrap";
+@import '~js-datepicker/src/datepicker';
+
+.newclass{
+    font-size: xx-large;
+}
+
+.top-row{
+    margin-right: 20px;
+}
+
+.form-control{
+    width: 50%;
+}

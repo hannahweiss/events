@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>EventApp · Phoenix Framework</title>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+    <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+    <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  </head>
+  <body>
+  <%= if @conn.assigns[:current_user] do %>
+          <div class="col">
+            User: <%= @current_user.name %> |
+            <%= link("Logout", to: Routes.session_path(@conn, :delete),
+              method: :delete) %>
+          </div>
+        <% else %>
+          <div class="col">
+            <%= form_for @conn, Routes.session_path(@conn, :create),
+            [class: "form-inline"], fn f -> %>
+              <%= text_input f, :name, class: "form-control top-row" %>
+              <%= submit "Login", class: "btn btn-secondary top-row" %>
+              <%= link "Register", to: Routes.user_path(@conn, :new), class: "btn btn-secondary top-row"%>
+            <% end %>
+          </div>
+          <%end%>
+      <%= if get_flash(@conn, :error) do %>
+        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <% end %>
+      <%= @inner_content %>
+    </div>
+    
+  </body>
+</html>
