@@ -1,3 +1,3 @@
 # EventApp
 
-Structure of new resources taken from https://github.com/NatTuck/photo_blog/
+Includes code from and based on Prof Tuck's in-class PhotoBlog example.
