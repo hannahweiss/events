@@ -1,3 +1,3 @@
 # EventApp
 
-Includes code from and based on Prof Tuck's in-class PhotoBlog example.
+Includes code from and based on Prof Tuck's in-class [PhotoBlog](https://github.com/NatTuck/photo_blog/) example.
