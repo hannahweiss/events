@@ -102,4 +102,8 @@ defmodule EventApp.Events do
   def change_event(%Event{} = event, attrs \\ %{}) do
     Event.changeset(event, attrs)
   end
+
+  def load_comments(%Event{} = event) do
+    Repo.preload(event, [comments: :user])
+  end
 end

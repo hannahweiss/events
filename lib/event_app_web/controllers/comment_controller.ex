@@ -15,6 +15,10 @@ defmodule EventAppWeb.CommentController do
   end
 
   def create(conn, %{"comment" => comment_params}) do
+    IO.inspect(current_user_id(conn))
+    comment_params = comment_params
+    |> Map.put("user_id", current_user_id(conn))
+    IO.inspect(comment_params)
     case Comments.create_comment(comment_params) do
       {:ok, comment} ->
         conn

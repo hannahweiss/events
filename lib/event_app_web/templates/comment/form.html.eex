@@ -5,6 +5,9 @@
     </div>
   <% end %>
 
+  <%= hidden_input f, :event_id %>
+  <%= hidden_input f, :user_id %>
+
   <%= label f, :body %>
   <%= textarea f, :body %>
   <%= error_tag f, :body %>

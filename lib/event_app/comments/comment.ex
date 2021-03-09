@@ -4,8 +4,8 @@ defmodule EventApp.Comments.Comment do
 
   schema "comments" do
     field :body, :string
-    field :event_id, :id
-    field :user_id, :id
+    belongs_to :event, EventApp.Events.Event
+    belongs_to :user, EventApp.Users.User
 
     timestamps()
   end
@@ -13,7 +13,8 @@ defmodule EventApp.Comments.Comment do
   @doc false
   def changeset(comment, attrs) do
     comment
-    |> cast(attrs, [:body])
-    |> validate_required([:body])
+    |> cast(attrs, [:body, :event_id, :user_id])
+    |> IO.inspect()
+    |> validate_required([:body, :event_id, :user_id])
   end
 end
