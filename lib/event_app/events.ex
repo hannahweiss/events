@@ -19,6 +19,7 @@ defmodule EventApp.Events do
   """
   def list_events do
     Repo.all(Event)
+    |> Repo.preload(:user)
   end
 
   @doc """

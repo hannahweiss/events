@@ -6,6 +6,7 @@ defmodule EventApp.Events.Event do
     field :date, :date
     field :description, :string
     field :name, :string
+    belongs_to :user, EventApp.Users.User
 
     timestamps()
   end
@@ -32,7 +33,7 @@ defmodule EventApp.Events.Event do
         "Dec" => 12
       }
 
-      %{"name" => event["name"], "description" => event["description"], "date" => %{
+      %{"name" => event["name"], "description" => event["description"], "user_id" => event["user_id"], "date" => %{
         "day" => Enum.at(date_list, 2), "month" => Map.fetch!(months, Enum.at(date_list, 1)), "year" => Enum.at(date_list, 3)
       }}
     else
@@ -44,7 +45,7 @@ defmodule EventApp.Events.Event do
   def changeset(event, attrs) do
     IO.inspect(attrs)
     event
-    |> cast(convert_date(attrs), [:name, :date, :description])
-    |> validate_required([:name, :date, :description])
+    |> cast(convert_date(attrs), [:name, :date, :description, :user_id])
+    |> validate_required([:name, :date, :description, :user_id])
   end
 end
