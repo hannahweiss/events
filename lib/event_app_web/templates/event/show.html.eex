@@ -1,48 +1,107 @@
-<h1>Show Event</h1>
-
-<ul>
-
-  <li>
-    <strong>Name:</strong>
-    <%= @event.name %>
-  </li>
-
-  <li>
-    <strong>Date:</strong>
-    <%= @event.date %>
-  </li>
-
-  <li>
-    <strong>Description:</strong>
-    <%= @event.description %>
-  </li>
-
-</ul>
-
-<%= if current_user_id?(@conn, @event.user_id) do %>
-  <span><%= link "Edit", to: Routes.event_path(@conn, :edit, @event) %></span>
-<% end %>
-
-<h2>Add Comment</h2>
-
 <%= if have_current_user?(@conn) do %>
-  <%= render(
-    EventAppWeb.CommentView,
-    "form.html",
-    changeset: @new_comment,
-    action: Routes.comment_path(@conn, :create)
-  ) %>
+  <%= if current_user_id?(@conn, @event.user_id) do %>
+    <h1>
+      <%= @event.name %>
+    </h1>
+    <ul>
+      <li>
+        <strong>Date:</strong>
+        <%= @event.date %>
+      </li>
+
+      <li>
+        <strong>Description:</strong>
+        <%= @event.description %>
+      </li>
+
+    </ul>
+
+    <span><%= link "Edit", to: Routes.event_path(@conn, :edit, @event) %></span>
+    <h2>Invite a User</h2>
+    <%= render(
+      EventAppWeb.InvitationView,
+      "form.html",
+      changeset: @new_invitation,
+      action: Routes.invitation_path(@conn, :create)
+    ) %>
+
+    <h2>Add Comment</h2>
+    <%= render(
+      EventAppWeb.CommentView,
+      "form.html",
+      changeset: @new_comment,
+      action: Routes.comment_path(@conn, :create)
+    ) %>
+
+    <h2>Comments</h2>
+
+    <%= for comm <- @event.comments do %>
+      <div class="card">
+        <div class="card-body">
+          <p>Posted by <%= comm.user.name %></p>
+          <p class="card-text"><%= comm.body %></p>
+        </div>
+      </div>
+
+    <% end %>
+  <% end %>
+
+  <%= invitees = Enum.map(@event.invitations, fn x -> x.user.id end) %>
+
+  <%= if !current_user_id?(@conn, @event.user_id) and 
+  Enum.member?(invitees, @conn.assigns[:current_user].id) do %>
+    <h1>
+      <%= @event.name %>
+    </h1>
+    <ul>
+      <li>
+        <strong>Date:</strong>
+        <%= @event.date %>
+      </li>
+
+      <li>
+        <strong>Description:</strong>
+        <%= @event.description %>
+      </li>
+
+    </ul>
+    <h2>Add Comment</h2>
+      <%= render(
+        EventAppWeb.CommentView,
+        "form.html",
+        changeset: @new_comment,
+        action: Routes.comment_path(@conn, :create)
+      ) %>
+
+      <h2>Comments</h2>
+
+      <%= for comm <- @event.comments do %>
+        <div class="card">
+          <div class="card-body">
+            <p>Posted by <%= comm.user.name %></p>
+            <p class="card-text"><%= comm.body %></p>
+          </div>
+        </div>
+      <% end %>
+  <% end %>
+
+  <%= if !current_user_id?(@conn, @event.user_id) and 
+  !Enum.member?(invitees, @conn.assigns[:current_user].id) do %>
+    <p class="text-danger"> You need an invitation to view this event. </p>
+
+  <% end %>
+
 <% end %>
 
-<h2>Comments</h2>
 
-<%= for comm <- @event.comments do %>
-  <div class="card">
-    <div class="card-body">
-      <p>Posted by <%= comm.user.name %></p>
-      <p class="card-text"><%= comm.body %></p>
-    </div>
-  </div>
+
+  
+
+<%= if !have_current_user?(@conn) do %>
+  <p class="text-danger"> You must log in to view this event </p>
 <% end %>
+
+
+
 
 <span><%= link "Back", to: Routes.event_path(@conn, :index) %></span>

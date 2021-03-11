@@ -7,7 +7,8 @@ defmodule EventApp.Events.Event do
     field :description, :string
     field :name, :string
     belongs_to :user, EventApp.Users.User
-    has_many :comments, EventApp.Comments.Comment
+    has_many :comments, EventApp.Comments.Comment, on_delete: :delete_all
+    has_many :invitations, EventApp.Invitations.Invitation, on_delete: :delete_all
 
     timestamps()
   end

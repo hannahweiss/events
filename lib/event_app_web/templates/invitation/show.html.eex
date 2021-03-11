@@ -1,0 +1,21 @@
+<h1>Show Invitation</h1>
+
+<ul>
+
+  <li>
+    <strong>User:</strong>
+    <%= @invitation.user_id %>
+  </li>
+  <li>
+    <strong>Status:</strong>
+    <%= @invitation.status %>
+  </li>
+  <li>
+    <strong>Invite Link:</strong>
+    <%= EventAppWeb.Router.Helpers.page_url(EventAppWeb.Endpoint, :index) <> Routes.event_path(@conn, :show, @invitation.event_id) %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.invitation_path(@conn, :edit, @invitation) %></span>
+<span><%= link "Back", to: Routes.invitation_path(@conn, :index) %></span>

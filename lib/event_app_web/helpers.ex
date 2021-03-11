@@ -1,3 +1,6 @@
+alias EventApp.Repo
+alias EventApp.Events.Event
+
 defmodule EventAppWeb.Helpers do
     def have_current_user?(conn) do
         conn.assigns[:current_user] != nil
