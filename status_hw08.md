@@ -19,7 +19,7 @@ events.hweisswebdev.com
 
 
 4. Is your app functionality complete? If not, what's missing?
-no, missing users are not able to properly respond to invitations, doesn't deal with inviting users who do not exist in the database, some workflow stuff is not perfect.
+no, users are not able to properly respond to invitations, doesn't deal with inviting users who do not exist in the database, some workflow stuff is not perfect.
 
 
 
