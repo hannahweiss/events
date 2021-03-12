@@ -55,6 +55,10 @@ defmodule EventApp.Invitations do
     |> Repo.insert()
   end
 
+  def update_invite_status(a, b, c) do
+    IO.inspect(c)
+  end
+
   @doc """
   Updates a invitation.
 

@@ -65,6 +65,10 @@
       </li>
 
     </ul>
+
+
+    <span><%= link "Respond to Invitation", to: Routes.invitation_path(@conn, :edit, get_invite_id(@conn, @event.id)) %></span>
+
     <h2>Add Comment</h2>
       <%= render(
         EventAppWeb.CommentView,
