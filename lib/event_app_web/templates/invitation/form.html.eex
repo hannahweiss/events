@@ -8,10 +8,10 @@
   <%= hidden_input f, :event_id %>
 
   <%= label f, :user_id %>
-  <%= textarea f, :user_id %>
+  <%= textarea f, :user_id, class: "form-control" %>
   <%= error_tag f, :user_id %>
 
   <div>
-    <%= submit "Save" %>
+    <%= submit "Save", class: "btn btn-primary" %>
   </div>
 <% end %>

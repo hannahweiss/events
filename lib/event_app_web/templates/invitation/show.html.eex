@@ -18,4 +18,4 @@
 </ul>
 
 <span><%= link "Edit", to: Routes.invitation_path(@conn, :edit, @invitation) %></span>
-<span><%= link "Back", to: Routes.invitation_path(@conn, :index) %></span>
+<span><%= link "Back", to: Routes.event_path(@conn, :show, @invitation.event_id) %></span>

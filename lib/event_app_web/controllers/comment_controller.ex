@@ -3,6 +3,22 @@ defmodule EventAppWeb.CommentController do
 
   alias EventApp.Comments
   alias EventApp.Comments.Comment
+  alias EventApp.Events
+
+  plug :fetch_comment when action in [:show, :edit, :update, :delete]
+  plug :require_owner when action in [:edit, :update, :delete]
+  
+  def fetch_comment(conn, _args) do
+    id = conn.params["id"]
+    comment = Comments.get_comment!(id)
+
+    event_id = Map.get(comment, :event_id)
+    event = Events.get_event!(event_id)
+
+    conn
+    |> assign(:event, event)
+    |> assign(:comment, comment)
+  end
 
   def index(conn, _params) do
     comments = Comments.list_comments()
@@ -63,4 +79,20 @@ defmodule EventAppWeb.CommentController do
     |> put_flash(:info, "Comment deleted successfully.")
     |> redirect(to: Routes.comment_path(conn, :index))
   end
+
+  def require_owner(conn, _args) do
+    user = conn.assigns[:current_user]
+    comment = conn.assigns[:comment]
+    event = conn.assigns[:event]
+
+    if (user.id == event.user_id or user.id == comment.user_id) do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You can't delete this comment")
+      |> redirect(to: Routes.event_path(conn, :show, event.id))
+      |> halt()
+    end
+  end
+
 end

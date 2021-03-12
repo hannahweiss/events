@@ -21,7 +21,8 @@ defmodule EventAppWeb.InvitationController do
     name = (invite["user_id"])
     user = Repo.get_by(User, name: name)
     IO.inspect(user)
-    if name do
+    if (user != nil) and 
+    name do
       %{"event_id" => invite["event_id"], "user_id" => Map.get(user, :id), "status" => "No Response"}
     else
       invite

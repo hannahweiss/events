@@ -40,6 +40,7 @@
         <div class="card-body">
           <p>Posted by <%= comm.user.name %></p>
           <p class="card-text"><%= comm.body %></p>
+          <span><%= link "Delete", to: Routes.comment_path(@conn, :delete, comm), method: :delete, data: [confirm: "Are you sure?"] %></span>
         </div>
       </div>
 
@@ -84,6 +85,10 @@
           <div class="card-body">
             <p>Posted by <%= comm.user.name %></p>
             <p class="card-text"><%= comm.body %></p>
+            <%= if Map.get(comm, :user_id) == @conn.assigns[:current_user].id do %>
+              <span><%= link "Delete", to: Routes.comment_path(@conn, :delete, comm), method: :delete, data: [confirm: "Are you sure?"] %></span>
+            <% end %>
+            
           </div>
         </div>
       <% end %>

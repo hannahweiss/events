@@ -12,9 +12,13 @@
     <%= @user.email %>
   </li>
 
-  <div >
-    <img class="profile-photo" src="<%= Routes.user_path(@conn, :photo, @user) %>" alt="">
-  </div>
+  <%= if @user.photo_hash do %>
+    <div>
+      <img class="profile-photo" src="<%= Routes.user_path(@conn, :photo, @user) %>" alt="">
+    </div>
+  <% end %>
+
+  
 
 </ul>
 
